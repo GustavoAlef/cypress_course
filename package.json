@@ -6,8 +6,9 @@
   "scripts": {
     "cy:open": "cypress open"
   },
-  "devDependencies": {
-    "cypress": "^5.4.0"
+  "dependencies": {
+    "cypress": "^5.4.0",
+    "cypress-xpath": "^1.6.0"
   },
   "keywords": [],
   "author": "",
