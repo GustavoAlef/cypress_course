@@ -24,6 +24,7 @@ Cypress.Commands.add('getToken', (email, pass) => {
     }
   }).its('body.token').should('not.be.empty')
     .then(token => {
+      Cypress.env('envToken', token)
       return token
     })
 })
@@ -53,4 +54,16 @@ Cypress.Commands.add('getAccountByName', (name, email, pass) => {
       return res.body[0].id
     })
   })
+})
+
+Cypress.Commands.overwrite('request', (originalFn, ...options) => {
+  if(options.length === 1){
+    if (Cypress.env('envToken')){
+      options[0].headers = {
+        Authorization: `JWT ${Cypress.env('envToken')}`
+      }
+    }
+  }
+
+  return originalFn(...options)
 })
